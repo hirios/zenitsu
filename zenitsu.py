@@ -23,27 +23,37 @@ def limpar():
 
 def depencencias():
     if os.name == 'posix':
-        nettools = os.system('hash netstat')
+        nettools = os.system("hash netstat > /dev/null 2>&1")
+        aptget = os.system("hash apt-get > /dev/null 2>&1")
+        
         if nettools != 0:
-            try:
-                os.system("pacman -S net-tools")
-            except:
+            if aptget == 0:
+                print("Instalando dependências...")
+                print()
                 os.system("apt-get install net-tools")
+            else:
+                os.system("pacman -S net-tools")
 
-        aircrack = os.system("hash aircrack-ng")
+
+        aircrack = os.system("hash aircrack-ng /dev/null 2>&1")
         if aircrack != 0:
-            try:
-                os.system("pacman -S aircrack-ng")
-            except:
+            if aptget == 0:
+                print("Instalando dependências...")
+                print()
                 os.system("apt-get install aircrack-ng")
+            else:
+                os.system("pacman -S aircrack-ng")
+                          
 
-        mdk3 = os.system("hash mdk3")
+        mdk3 = os.system("hash mdk3 /dev/null 2>&1")
         if mdk3 != 0:
-            try:
-                os.system("pacman -S mdk3")
-            except:
+            if aptget == 0:
+                print("Instalando dependências...")
+                print()
                 os.system("apt install mdk3")
-
+            else:
+                os.system("pacman -S mdk3")
+           
 
 # Limpando PATH, gerenciando dependências e gravando nomes de todas interfaces num .txt
 limpar()
