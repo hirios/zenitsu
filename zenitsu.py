@@ -69,7 +69,7 @@ interfaces_disponiveis = []
 cont = 1
 for linha in txt:
     split = linha.split()
-    if split[0] != "Kernel" and split[0] != "Iface" and split[0] != "lo":
+    if split[0] != "Kernel" and split[0] != "Iface" and split[0] != "lo" and split[0] != "Tabela" and split[0] != "Table":
         print([cont], split[0])
         interfaces_disponiveis.append(split[0])
         cont += 1
@@ -115,7 +115,7 @@ for linha in arquivo:
     try:
         valores = linha.split("\n")
         valores = linha.split()
-        if " ".join(valores[2:]) != "" and " ".join(valores[2:]) != "MAC NaN" and " ".join(valores[2:]) != "NaN" and " ".join(valores[2:]) != "Tabela" and " ".join(valores[2:]) != "Table":
+        if " ".join(valores[2:]) != "" and " ".join(valores[2:]) != "MAC NaN" and " ".join(valores[2:]) != "NaN":
             print([cont], " ".join(valores[2:]))
             MAC.append(valores[1])
             cont += 1
