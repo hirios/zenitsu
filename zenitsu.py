@@ -115,7 +115,7 @@ for linha in arquivo:
     try:
         valores = linha.split("\n")
         valores = linha.split()
-        if " ".join(valores[2:]) != "" and " ".join(valores[2:]) != "MAC NaN" and " ".join(valores[2:]) != "NaN":
+        if " ".join(valores[2:]) != "" and " ".join(valores[2:]) != "MAC NaN" and " ".join(valores[2:]) != "NaN" and " ".join(valores[2:]) != "Tabela" and " ".join(valores[2:]) != "Table":
             print([cont], " ".join(valores[2:]))
             MAC.append(valores[1])
             cont += 1
