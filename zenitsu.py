@@ -87,10 +87,13 @@ print("[+] Buscando redes próximas")
 
 # Se a interface selecionada já estivesse em Modo Monitor, concatena um "n", ex: (wlanmo + n) == wlanmon
 # Se nao for o caso, concatena o "mon" ao invés do "n"
-if interfaces_disponiveis[interface_selecionada].find("mo") == -1:
-    interfaces_disponiveis[interface_selecionada] = interfaces_disponiveis[interface_selecionada] + "mon"
+if interfaces_disponiveis[interface_selecionada].find("mon") != -1:
+    pass
 else:
-    interfaces_disponiveis[interface_selecionada] = interfaces_disponiveis[interface_selecionada] + "n"
+    if interfaces_disponiveis[interface_selecionada].find("mo") == -1:
+        interfaces_disponiveis[interface_selecionada] = interfaces_disponiveis[interface_selecionada] + "mon"
+    else:
+        interfaces_disponiveis[interface_selecionada] = interfaces_disponiveis[interface_selecionada] + "n"
 
 # Inicia a busca de redes num outro terminal e oculta a saída com 2>/dev/nul
 start_sniff = os.popen(f"x-terminal-emulator -e bash -c 'airodump-ng -w BSSID --output-format csv {interfaces_disponiveis[interface_selecionada]}' 2>/dev/null")
